@@ -1,12 +1,12 @@
 development: &common
   adapter: sqlite3
-  database: saltscaper
+  database: saltscraper
 staging:
   <<: *common
-  database: saltscaper_staging
+  database: saltscraper_staging
 production:
   <<: *common
-  database: saltscaper_production
+  database: saltscraper_production
 test: &test
   <<: *common
-  database: saltscaper_test
+  database: saltscraper_test

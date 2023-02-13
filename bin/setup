@@ -21,7 +21,9 @@ class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
   end
 end
 
-CreateUrlEntryTable.migrate(:down)
+if ActiveRecord::Base.connection.table_exists? :url_entries
+  CreateUrlEntryTable.migrate(:down)
+end
 CreateUrlEntryTable.migrate(:up)
 
 class CreatePageTitlesTable < ActiveRecord::Migration[5.2]
@@ -34,5 +36,7 @@ class CreatePageTitlesTable < ActiveRecord::Migration[5.2]
   end
 end
 
-CreatePageTitlesTable.migrate(:down)
+if ActiveRecord::Base.connection.table_exists? :page_titles
+  CreatePageTitlesTable.migrate(:down)
+end
 CreatePageTitlesTable.migrate(:up)
