@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+require_relative '../app.rb'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: ./bin/scraper [options]"
+
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+
+  opts.on("-h", "--help", "Display this help") do |h|
+  end
+
+  opts.on("-lFILENAME", "--list=FILENAME", "Use url list from file") do |l|
+    options[:url_list] = l
+  end
+end.parse!
+
+Application.new(options).start!

@@ -1,0 +1,3 @@
+dummy entry will not be parsed
+https://https://sinatrarb.com/intro.html
+https://rubyreferences.github.io/rubychanges/3.0.html#highlights

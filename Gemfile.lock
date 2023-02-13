@@ -87,6 +87,7 @@ GEM
     multipart-post (2.2.3)
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
+    optparse (0.3.1)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -139,6 +140,7 @@ DEPENDENCIES
   faraday
   faraday-retry
   irb
+  optparse
   pry
   pry-byebug
   rspec

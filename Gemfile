@@ -6,6 +6,7 @@ gem 'irb'
 gem 'faraday'
 gem 'faraday-retry'
 #gem 'sinatra'
+gem 'optparse'
 gem 'sqlite3'
 
 group :development do
