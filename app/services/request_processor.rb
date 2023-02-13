@@ -1,12 +1,18 @@
+# Processes individual UrlEntry, handles response
 class RequestProcessor
   attr_reader :url_entry
 
   def initialize(url_entry)
     @url_entry = url_entry
+
+    if url_entry.processed_at || url_entry.failed_at
+      raise "Invalid state for #{url_entry.inspect}"
+    end
   end
 
   def call
     Application.logger.debug { "processing request #{url_entry.id}" }
+
     response = Downloader.new(url_entry.url).call
     url_entry.update(
       processed_at: Time.now,
@@ -18,7 +24,7 @@ class RequestProcessor
     end
     response
   rescue Faraday::Error => e # retries are handled in Downloader
-    Application.logger.debug { "Got error #{e.inspect}" }
+    Application.logger.error { "Got error #{e.inspect}" }
     url_entry.update(
       failed_at: Time.now,
       error: e.message

@@ -1,3 +1,4 @@
+# Fires request to URL, knows nothing about UrlEntry
 class Downloader
   attr_reader :connection, :url
 
@@ -15,8 +16,7 @@ class Downloader
 
   def open_connection
     Faraday.new(url: url) do |faraday|
-      #faraday.response :logger # log requests to STDOUT
-      #faraday.adapter :net_http_persistent
+      #faraday.adapter :net_http_persistent # TODO see above
       faraday.request :retry, retry_options
     end
   end

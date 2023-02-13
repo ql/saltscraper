@@ -22,7 +22,7 @@ class Application
       Configuration
     end
 
-    def init_logger(level) # makes sense to add path to logfile here
+    def init_logger(level) # TODO add path to logfile here
       @logger =
         Logger.new(STDOUT).tap do |logger|
           logger.level = level || :error

@@ -1,3 +1,4 @@
+# Gets urls from DB, and sends them to processor respecting rate throttle
 class Worker
   BATCH_SIZE = 10
 

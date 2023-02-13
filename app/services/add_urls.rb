@@ -1,3 +1,4 @@
+# Takes urls from file, saves to DB
 class AddUrls
   def initialize(path)
     @path = path
@@ -8,10 +9,10 @@ class AddUrls
     File.open(@path).each_line do |line|
       url = line.strip
       if valid_url?(url)
-        enqueue_url(url)
+        enqueue_url(url) # FIXME - it's SLOW, should use batch insert
         counter += 1
       else
-        Application.logger.error { "Cannot parse URL `#{url}`" }
+        Application.logger.error { "Cannot parse URL `#{url}`, skipping" }
         next
       end
     end
