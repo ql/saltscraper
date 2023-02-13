@@ -8,13 +8,14 @@ class Downloader
   end
 
   def call
+    Application.logger.debug { "fetching #{url}..." }
     # we don't care about exceptions here, will handle them in the caller
     connection.get(url)
   end
 
   def open_connection
     Faraday.new(url: url) do |faraday|
-      faraday.response :logger # log requests to STDOUT
+      #faraday.response :logger # log requests to STDOUT
       #faraday.adapter :net_http_persistent
       faraday.request :retry, retry_options
     end

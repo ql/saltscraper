@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 require_relative '../app.rb'
 
+ActiveRecord::Base.establish_connection(
+  adapter: Application.config.database_settings['adapter'],
+  database: Application.config.database_settings['database']
+)
 
 class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
   def change
@@ -8,6 +12,7 @@ class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
       t.string :url
       t.string :http_status
       t.string :error
+      t.string :saved_response
       t.timestamps
       t.datetime :processing_started_at
       t.datetime :processed_at
@@ -16,6 +21,7 @@ class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
   end
 end
 
+CreateUrlEntryTable.migrate(:down)
 CreateUrlEntryTable.migrate(:up)
 
 class CreatePageTitlesTable < ActiveRecord::Migration[5.2]
@@ -28,4 +34,5 @@ class CreatePageTitlesTable < ActiveRecord::Migration[5.2]
   end
 end
 
+CreatePageTitlesTable.migrate(:down)
 CreatePageTitlesTable.migrate(:up)

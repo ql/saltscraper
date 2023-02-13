@@ -2,4 +2,4 @@ workers: 4
 cache_expiration_hours: 24
 max_retries: 3
 limit_window_minutes: 5
-limit_window_attempts: 300
+limit_window_attempts: 1200
