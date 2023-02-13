@@ -6,10 +6,8 @@ class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
   def change
     create_table :url_entries do |t|
       t.string :url
-      t.string :domain
       t.string :http_status
       t.string :error
-      t.integer :retry_count
       t.timestamps
       t.datetime :processing_started_at
       t.datetime :processed_at

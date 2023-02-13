@@ -136,7 +136,8 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activestorage
-  faraday (~> 1.0)
+  faraday
+  faraday-retry
   irb
   pry
   pry-byebug

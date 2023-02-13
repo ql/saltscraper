@@ -8,5 +8,9 @@ class Configuration
     def settings
       @database_settings ||= YAML.load_file('./config/settings.yml')
     end
+
+    def post_receive_callback(body, url)
+      puts "Received body!" # TODO - add saving page title
+    end
   end
 end

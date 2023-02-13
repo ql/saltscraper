@@ -9,13 +9,23 @@ class Downloader
 
   def call
     # we don't care about exceptions here, will handle them in the caller
-    connection.get(url).body 
+    connection.get(url)
   end
 
   def open_connection
     Faraday.new(url: url) do |faraday|
       faraday.response :logger # log requests to STDOUT
       #faraday.adapter :net_http_persistent
+      faraday.request :retry, retry_options
     end
+  end
+
+  def retry_options
+    {
+      max: Application.config.settings['max_retries'],
+      interval: 0.05,
+      interval_randomness: 0.5,
+      backoff_factor: 2
+    }
   end
 end
