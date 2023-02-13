@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+require_relative '../app.rb'
+
+
+class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
+  def change
+    create_table :url_entries do |t|
+      t.string :url
+      t.string :domain
+      t.string :http_status
+      t.string :error
+      t.integer :retry_count
+      t.timestamps
+      t.datetime :processing_started_at
+      t.datetime :processed_at
+      t.datetime :failed_at
+    end
+  end
+end
+
+CreateUrlEntryTable.migrate(:up)
+
+class CreatePageTitlesTable < ActiveRecord::Migration[5.2]
+  def change
+    create_table :page_titles do |t|
+      t.string :url
+      t.string :title
+      t.timestamps
+    end
+  end
+end
+
+CreatePageTitlesTable.migrate(:up)

@@ -1,6 +1,7 @@
 class Downloader
   attr_reader :connection, :url
 
+  # TODO: implement connection reuse
   def initialize(url, connection: nil)
     @url = url
     @connection = connection || open_connection

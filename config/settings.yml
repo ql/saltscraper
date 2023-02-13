@@ -1,0 +1,5 @@
+workers: 4
+cache_expiration_hours: 24
+retry_count: 3
+limit_window_minutes: 5
+limit_window_attempts: 300

@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 
 gem 'activerecord'
 gem 'activestorage'
+gem 'irb'
 gem 'faraday', '~> 1.0'
-gem 'sinatra'
+#gem 'sinatra'
+gem 'sqlite3'
 
 group :development do
   gem 'pry'
