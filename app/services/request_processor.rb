@@ -13,25 +13,36 @@ class RequestProcessor
   def call
     Application.logger.debug { "processing request #{url_entry.id}" }
 
-    response = Downloader.new(url_entry.url).call
-    url_entry.update(
-      processed_at: Time.now,
-      http_status: response.status
-    )
+    response = connection.get(url_entry.url)
     if response.success?
       url_entry.save_response_body(response.body)
       fire_callback(response.body,url_entry.url)
     end
-    response
-  rescue Faraday::Error => e # retries are handled in Downloader
+    url_entry.update(processed_at: Time.now, http_status: response.status)
+  rescue Faraday::Error => e
     Application.logger.error { "Got error #{e.inspect}" }
-    url_entry.update(
-      failed_at: Time.now,
-      error: e.message
-    )
+    url_entry.update(failed_at: Time.now, error: e.message)
   end
 
   private
+
+  # Ideally we should use net_http_persistent and re-use this connection
+  def connection
+    @connection ||=
+      Faraday.new(url: url_entry.url) do |faraday|
+        faraday.adapter :net_http
+        faraday.request :retry, retry_options
+      end
+  end
+
+  def retry_options
+    {
+      max: Application.config.settings['max_retries'],
+      interval: 0.05,
+      interval_randomness: 0.5,
+      backoff_factor: 2
+    }
+  end
 
   def fire_callback(body, url)
     Application.config.post_receive_callback(body, url)
