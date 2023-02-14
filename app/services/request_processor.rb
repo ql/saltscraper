@@ -11,11 +11,14 @@ class RequestProcessor
     Application.logger.debug { "processing request #{url_entry.id}" }
 
     response = connection.get(url_entry.url)
+    url_entry.processed_at = Time.now
+    url_entry.http_status = response.status
     if response.success?
-      url_entry.save_response_body(response.body)
+      url_entry.save_response_body(response.body) # saved here
       fire_callback(response.body,url_entry.url)
+    else
+      url_entry.save!
     end
-    url_entry.update(processed_at: Time.now, http_status: response.status)
   rescue Faraday::Error => e
     Application.logger.error { "Got error #{e.inspect}" }
     url_entry.update(failed_at: Time.now, error: e.message)

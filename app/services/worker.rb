@@ -15,10 +15,11 @@ class Worker
       batch = UrlEntry.pending.order(id: :asc).limit(BATCH_SIZE).to_a
       UrlEntry.where(id: batch.map(&:id)).update_all(processing_started_at: Time.now)
     end
-    Thread.exit if batch.empty? # here we can add sleep for daemon-like behavior
+    Thread.exit if batch.empty? # we can use sleep here for daemon-like behavior
 
     batch.each do |url_entry|
       with_delay do
+        # here we can store connection in case of re-use
         RequestProcessor.new(url_entry).call
       end
     end
@@ -26,6 +27,8 @@ class Worker
 
   private
 
+  # we calculate time window for each request based on settings
+  # and make thread sleep if it's working too fast
   def with_delay
     start_at = Time.now
     yield

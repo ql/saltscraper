@@ -10,6 +10,8 @@ class UrlEntry < ActiveRecord::Base
   end
 
   def html_content
+    return nil unless self.saved_response_path.present?
+
     File.open(File.join(FILE_STORE, self.saved_response_path)).read
   end
 end
