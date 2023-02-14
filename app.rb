@@ -1,12 +1,10 @@
 require 'bundler/setup'
 
 Bundler.require
-Bundler.require(:development)
 require 'active_record'
 
+require __dir__ + '/config/configuration.rb'
 Dir[__dir__ + '/app/**/*.rb'].each &method(:require)
-Dir[__dir__ + '/config/*.rb'].each &method(:require)
-
 
 class Application
   class << self
@@ -74,7 +72,7 @@ class Application
         Worker.new.start
       end
     end
-    threads.each { |thr| thr.join }
+    threads.each(&:join)
   end
 end
 

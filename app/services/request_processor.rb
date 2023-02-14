@@ -4,10 +4,7 @@ class RequestProcessor
 
   def initialize(url_entry)
     @url_entry = url_entry
-
-    if url_entry.processed_at || url_entry.failed_at
-      raise "Invalid state for #{url_entry.inspect}"
-    end
+    raise "Invalid state for #{url_entry.inspect}" if url_entry.processed_at || url_entry.failed_at
   end
 
   def call
