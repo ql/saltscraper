@@ -15,7 +15,8 @@ class Worker
       batch = UrlEntry.pending.order(id: :asc).limit(BATCH_SIZE).to_a
       UrlEntry.where(id: batch.map(&:id)).update_all(processing_started_at: Time.now)
     end
-    exit if batch.empty? # here we can add sleep for daemon-like behavior
+    Application.logger.debug { "Got batch #{batch.inspect}..." }
+    Thread.exit if batch.empty? # here we can add sleep for daemon-like behavior
 
     batch.each do |url_entry|
       with_delay do
