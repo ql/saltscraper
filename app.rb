@@ -5,7 +5,6 @@ Bundler.require(:development)
 require 'active_record'
 
 Dir[__dir__ + '/app/**/*.rb'].each &method(:require)
-Dir[__dir__ + '/lib/*.rb'].each &method(:require)
 Dir[__dir__ + '/config/*.rb'].each &method(:require)
 
 
