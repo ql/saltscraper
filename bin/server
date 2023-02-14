@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require_relative '../app.rb'
+require 'sinatra'
+ActiveRecord::Base.establish_connection(
+  adapter: Application.config.database_settings['adapter'],
+  database: Application.config.database_settings['database'],
+  readonly: true
+)
+
+get '/' do
+  begin 
+    erb <<-ERB
+      <h1>Salt scraper</h1>
+      <h2>Urls</h2>
+      <table border=1 cellpadding=2>
+      <tr><th>Total</th><td><%= UrlEntry.count %></td></tr>
+      <tr><th>Processed</th><td><%= UrlEntry.processed.count %></td></tr>
+      <tr><th>Pending</th><td><%= UrlEntry.pending.count %></td></tr>
+      <tr><th>Failed</th><td><%= UrlEntry.failed.count %></td></tr>
+      </table>
+
+      <h2>Saved titles</h2>
+      <table cellpadding=2>
+      <tr><th>Url</th><th>Title</th><th>Saved at</th></tr>
+      <% PageTitle.all.each do |page_title| %>
+      <tr>
+          <td><a href="<%= page_title.url %>"><%= page_title.url %></a></td>
+          <td><strong><%= page_title.title %></strong></td>
+          <td><%= page_title.created_at.to_s(:db) %></td>
+      </tr>
+      <% end %>
+      </table>
+    ERB
+  rescue ActiveRecord::StatementInvalid => e
+    'Database is locked, try reloading in few seconds'
+  end
+end

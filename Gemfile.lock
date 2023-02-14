@@ -52,6 +52,8 @@ GEM
     method_source (1.0.0)
     minitest (5.17.0)
     multipart-post (2.2.3)
+    mustermann (2.0.2)
+      ruby2_keywords (~> 0.0.1)
     nokogiri (1.14.0-x86_64-linux)
       racc (~> 1.4)
     optparse (0.3.1)
@@ -63,6 +65,9 @@ GEM
       pry (>= 0.13, < 0.15)
     public_suffix (5.0.1)
     racc (1.6.2)
+    rack (2.2.6.2)
+    rack-protection (2.2.2)
+      rack
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
@@ -80,7 +85,13 @@ GEM
       rspec-support (~> 3.11.0)
     rspec-support (3.11.0)
     ruby2_keywords (0.0.5)
+    sinatra (2.2.2)
+      mustermann (~> 2.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.2)
+      tilt (~> 2.0)
     sqlite3 (1.6.0-x86_64-linux)
+    tilt (2.0.11)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     vcr (6.0.0)
@@ -103,6 +114,7 @@ DEPENDENCIES
   pry
   pry-byebug
   rspec
+  sinatra
   sqlite3
   vcr
   webmock

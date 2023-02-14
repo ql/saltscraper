@@ -4,7 +4,7 @@ gem 'activerecord'
 gem 'irb'
 gem 'faraday'
 gem 'faraday-retry'
-#gem 'sinatra'
+gem 'sinatra', require: false
 gem 'nokogiri'
 gem 'optparse'
 gem 'sqlite3'

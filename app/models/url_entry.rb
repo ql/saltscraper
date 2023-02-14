@@ -2,6 +2,8 @@ class UrlEntry < ActiveRecord::Base
   FILE_STORE = './downloads'
 
   scope :pending, -> { where(processing_started_at: nil) }
+  scope :processed, -> { where(processed_at: nil) }
+  scope :failed, -> { where(failed_at: nil) }
 
   def save_response_body(html_source)
     file_name = "#{Time.now.to_i}-#{self.object_id}.html"
