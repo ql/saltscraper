@@ -5,6 +5,7 @@ gem 'irb'
 gem 'faraday'
 gem 'faraday-retry'
 #gem 'sinatra'
+gem 'nokogiri'
 gem 'optparse'
 gem 'sqlite3'
 
