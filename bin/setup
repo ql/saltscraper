@@ -12,7 +12,7 @@ class CreateUrlEntryTable < ActiveRecord::Migration[5.2]
       t.string :url
       t.string :http_status
       t.string :error
-      t.string :saved_response
+      t.string :saved_response_path
       t.timestamps
       t.datetime :processing_started_at
       t.datetime :processed_at

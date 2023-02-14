@@ -3,7 +3,6 @@ require 'bundler/setup'
 Bundler.require
 Bundler.require(:development)
 require 'active_record'
-require 'carrierwave/orm/activerecord'
 
 Dir[__dir__ + '/app/**/*.rb'].each &method(:require)
 Dir[__dir__ + '/lib/*.rb'].each &method(:require)
@@ -43,6 +42,7 @@ class Application
     Application.logger.debug { "Single request time window is set to #{self.class.config.worker_delay}" }
     create_connection
     add_urls
+    check_store_dir
     run_workers
   end
 
@@ -59,6 +59,12 @@ class Application
     return unless @start_options[:url_list]
     Application.logger.debug { "Adding urls from #{@start_options[:url_list]}" }
     AddUrls.new(@start_options[:url_list]).call
+  end
+
+  def check_store_dir
+    return if File.exists?(UrlEntry::FILE_STORE)
+
+    Dir.mkdir(UrlEntry::FILE_STORE)
   end
 
   def run_workers

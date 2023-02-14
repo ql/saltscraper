@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'activerecord'
-gem 'carrierwave'
 gem 'irb'
 gem 'faraday'
 gem 'faraday-retry'
