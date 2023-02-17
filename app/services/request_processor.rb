@@ -10,6 +10,8 @@ class RequestProcessor
   def call
     Application.logger.debug { "processing request #{url_entry.id}" }
 
+    return if url_cached
+
     response = connection.get(url_entry.url)
     url_entry.processed_at = Time.now
     url_entry.http_status = response.status
@@ -25,6 +27,18 @@ class RequestProcessor
   end
 
   private
+
+  def url_cached
+    # There might be cache expiration date check here
+    existing_entry = UrlEntry.processed.find_by(url: url_entry.url)
+    if existing_entry
+      Application.logger.debug { "Cached version found for #{url_entry.url}, not downloading it" }
+      url_entry.destroy
+      fire_callback(existing_entry.html_content, existing_entry.url)
+    else
+      false
+    end
+  end
 
   # Ideally we should use net_http_persistent and re-use this connection
   def connection

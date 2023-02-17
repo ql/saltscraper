@@ -2,3 +2,10 @@ dummy entry will not be parsed
 https://https://sinatrarb.com/intro.html
 https://rubyreferences.github.io/rubychanges/3.0.html#highlights
 https://kto-zvonil-rf.ru/79963454575
+https://kto-zvonil-rf.ru/79963454576
+https://kto-zvonil-rf.ru/79963454577
+https://kto-zvonil-rf.ru/79963454578
+https://kto-zvonil-rf.ru/79963454579
+https://kto-zvonil-rf.ru/79963454580
+https://kto-zvonil-rf.ru/79963454581
+https://rubyreferences.github.io/rubychanges/3.0.html#highlights
